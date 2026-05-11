@@ -1,18 +1,18 @@
 1. PASTA MARCON
- - fizeste uma limpeza nos ficheiros da Pasta MarCon
+ - fizeste uma limpeza nos ficheiros da Pasta MarCon, Boa
 
 2. PAGINA INICIAL
 - a div de saudação ficou estático
--Serviços (Marcação e Realização)
--Eliminar Contacto( já está no rodapé)
--login utente, ficou sem imagem no fundo (login não pode ir na nova página, continua na mesma página)
+-No Menu - o Item Serviços terá apenas duas opções(Marcação e Realização)
+-Eliminar o Item Contacto no Menu( já está no rodapé)
+-login utente, ficou sem imagem no fundo (login não pode ir na nova página, que tal continuar na mesma página?)
 
 3.PAGINA UTENTE
-- Bonito a tela do Utente (tavez a cor está muito morta)
-- incluir a opção calendário na soblista de consulta (lado esquerdo), sempre que é selecionado uma opção, no lado esquerdo deve marcar a opção ativada
--Quando é selecionda uma data fora do intervelo de uma mês, deve informa que somente é permitido dadas no intervelado de um mês
-3.1. MARCAÇÃO DE CONSULTA
+- Bonito a tela do Utente (talvez a cor está muito morta)
+- incluir a opção calendário na sublista de consulta (lado esquerdo), sempre que é selecionado uma opção, no lado esquerdo deve marcar a opção ativada
+-Quando é selecionada uma data fora do intervalo de uma mês, deve informa que somente é permitido dadas no intervelado de um mês
 
+3.1. MARCAÇÃO DE CONSULTA
 -Horarios Disponível apresentar somente "08:00" e não "08:00:00"
 -A div do Horarios Disponível deve ser estático, pois está a baixar a tabela das consultas marcadas
 - Marquei consulta, mas não actualizou na tabela
@@ -44,4 +44,3 @@
 - Tornar as opções nos paneis administrativo apresentáveis
 - o Administrador pode ver o total de consultas, o total de tudo 
  
-Cloud

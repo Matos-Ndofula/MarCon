@@ -35,17 +35,27 @@ document.addEventListener('DOMContentLoaded', function() {
             chatInput.value = '';
             chatInput.focus();
 
-            // Simular resposta do bot após 1 segundo
-            setTimeout(function() {
-                const responses = [
-                    'Obrigado pela sua mensagem. Como posso ajudá-lo?',
-                    'Entendo. Deixe-me procurar mais informações para você.',
-                    'Ótima pergunta! Você gostaria de agendar uma consulta?',
-                    'Em breve um atendente irá responder sua mensagem.'
-                ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                addMessage('bot', randomResponse);
-            }, 1000);
+            // Enviar para o backend
+            fetch('chatbot_api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.reply) {
+                    addMessage('bot', data.reply);
+                } else if (data.error) {
+                    addMessage('bot', 'Erro: ' + data.error);
+                } else {
+                    addMessage('bot', 'Desculpe, não consegui processar a resposta.');
+                }
+            })
+            .catch(error => {
+                addMessage('bot', 'Erro de conexão: ' + error.message);
+            });
         }
     }
 
