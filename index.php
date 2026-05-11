@@ -24,6 +24,8 @@ error_reporting(0);
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style1.css" rel="stylesheet">
+  <!-- Chatbot CSS -->
+  <link href="assets/css/chatbot.css" rel="stylesheet">
     <script src="hora.js"></script>
 
     <style>
@@ -278,25 +280,35 @@ error_reporting(0);
         </div>
     </section>
 
-    <!-- Chatbot -->
-    <div class="chat-widget">
-        <div class="chat-header">
-            <span><i class="fas fa-robot me-2"></i> Dr. Bot - Assistente SisCons</span>
-            <i class="fas fa-times"></i>
-        </div>
-        <div class="chat-body">
-            <div class="text-center text-muted small mb-2">Today</div>
-            <div class="msg shadow-sm">Olá! Posso te ajudar a agendar uma consulta?</div>
-            <div class="msg msg-user shadow-sm">Sim, gostaria de ver os horários.</div>
-            <div class="msg shadow-sm">Para qual especialidade?</div>
-            <div class="chat-options">
-                <button class="btn btn-sm">Clínica Geral</button>
-                <button class="btn btn-sm">Cardiologia</button>
+    <!-- Botão Flutuante do Chatbot -->
+    <button id="chatToggleBtn" class="chat-toggle-btn" title="Abrir Chatbot">
+        <i class="bi bi-chat-dots-fill"></i>
+    </button>
+
+    <!-- Modal do Chatbot -->
+    <div class="modal fade chat-modal" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel">
+                        <i class="bi bi-robot me-2"></i> Dr. Bot - Assistente SisCons
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="chatMessages" class="chat-messages">
+                        <div class="message bot">
+                            <div class="message-text">Olá! 👋 Bem-vindo ao SisCons. Como posso ajudá-lo hoje?</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-group d-flex gap-2">
+                        <input type="text" id="chatInput" class="form-control" placeholder="Digite sua mensagem...">
+                        <button id="sendButton" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" class="form-control form-control-sm border-0" placeholder="Escreva sua mensagem...">
-            <button class="btn btn-link btn-sm text-muted"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
@@ -349,6 +361,8 @@ error_reporting(0);
   
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- Chatbot JS -->
+  <script src="assets/js/chatbot.js"></script>
 
 </body>
 </html>

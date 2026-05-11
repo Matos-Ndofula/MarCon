@@ -1,0 +1,138 @@
+/* Botão Flutuante do Chatbot */
+.chat-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a3c5a 0%, #28a745 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.chat-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* Modal do Chatbot */
+.chat-modal .modal-dialog {
+    max-width: 400px;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    margin: 0;
+}
+
+.chat-modal .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.chat-modal .modal-header {
+    background: linear-gradient(135deg, #1a3c5a 0%, #28a745 100%);
+    color: white;
+    border: none;
+}
+
+.chat-modal .modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    background: #f0f2f5;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.message {
+    margin-bottom: 12px;
+    display: flex;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.bot {
+    justify-content: flex-start;
+}
+
+.message-text {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+}
+
+.message.user .message-text {
+    background: #1a3c5a;
+    color: white;
+}
+
+.message.bot .message-text {
+    background: white;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.chat-input-group {
+    padding: 12px;
+    border-top: 1px solid #ddd;
+    background: white;
+}
+
+.chat-input-group input {
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+}
+
+.chat-input-group input:focus {
+    outline: none;
+    border-color: #1a3c5a;
+    box-shadow: 0 0 5px rgba(26, 60, 90, 0.2);
+}
+
+.chat-input-group button {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .chat-modal .modal-dialog {
+        width: 90vw;
+        bottom: 80px;
+        right: 5%;
+        left: auto;
+    }
+
+    .chat-toggle-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}

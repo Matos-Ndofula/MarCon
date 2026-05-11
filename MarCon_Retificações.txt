@@ -44,3 +44,4 @@
 - Tornar as opções nos paneis administrativo apresentáveis
 - o Administrador pode ver o total de consultas, o total de tudo 
  
+Cloud

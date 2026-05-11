@@ -185,7 +185,7 @@
                 <div class="input-wrapper">
                    <div class="input-group has-validation">
                           <i class="bi bi-person"></i>
-                          <input type="email" class="form-control-custom" placeholder="Introduza o seu e-mail" id="email" name="email" values="" required>
+                          <input type="email" class="form-control-custom" placeholder="Introduza o seu e-maillll" id="email" name="email" values="" required>
                           <div class="invalid-feedback">Por favor digite o E-mail!</div>
                     </div>
                 </div>
