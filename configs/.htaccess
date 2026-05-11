@@ -1,0 +1,34 @@
+#deny xxx.xxx.xxx.xx bloqueia o ip de um usuario
+#Allow from xxx.xxx.xxx.xx permite um ip
+
+
+#bloqueando acesso a sertos arquivos
+Options -Indexes
+
+<FilesMatch "\.(txt|sql|ini)$">
+Deny from all
+</FilesMatch>
+#fim bloqueio
+
+
+
+RewriteEngine ON
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+
+
+#redireciona se digitar ip vai para ip.php 
+RewriteRule ^ip$ ip.php
+
+
+#protege arquivo htaccess
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+
+
+

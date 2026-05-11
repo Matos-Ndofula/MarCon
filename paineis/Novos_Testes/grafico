@@ -1,0 +1,385 @@
+Daniel 👨🏽‍💻🔥 bora fazer isso bem profissional, mas simples e offline, sem API externa.
+Vou te montar um exemplo real para o teu sistema de consultas médicas online no painel do Administrador:
+👉 Gráfico 1: Total de consultas por mês
+👉 Gráfico 2: Consultas por status (Marcada, Realizada, Cancelada)
+Tudo vindo da BD com PHP + MySQLi + HTML + JS
+E usando Chart.js local (offline).
+1️⃣ Estrutura da Tabela (exemplo)
+Tabela: consultas
+SQL
+Copiar código
+CREATE TABLE consultas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    paciente VARCHAR(100),
+    medico VARCHAR(100),
+    data_consulta DATE,
+    status ENUM('Marcada','Realizada','Cancelada') NOT NULL
+);
+2️⃣ Baixar Chart.js (Offline)
+Baixa o ficheiro do site oficial:
+👉 https://www.chartjs.org/⁠�
+Coloca dentro do teu projecto:
+Copiar código
+
+/assets/js/chart.js
+Nada de CDN. Tudo local.
+3️⃣ Arquivo: dashboard.php (Painel Admin)
+PHP
+Copiar código
+<?php
+include("conexao.php");
+
+// CONSULTAS POR MÊS
+$queryMes = "
+SELECT MONTH(data_consulta) AS mes, COUNT(*) as total
+FROM consultas
+GROUP BY MONTH(data_consulta)
+ORDER BY mes
+";
+
+$resultMes = mysqli_query($conn, $queryMes);
+
+$meses = [];
+$totaisMes = [];
+
+while($row = mysqli_fetch_assoc($resultMes)){
+    $meses[] = $row['mes'];
+    $totaisMes[] = $row['total'];
+}
+
+// CONSULTAS POR STATUS
+$queryStatus = "
+SELECT status, COUNT(*) as total
+FROM consultas
+GROUP BY status
+";
+
+$resultStatus = mysqli_query($conn, $queryStatus);
+
+$status = [];
+$totaisStatus = [];
+
+while($row = mysqli_fetch_assoc($resultStatus)){
+    $status[] = $row['status'];
+    $totaisStatus[] = $row['total'];
+}
+?>
+4️⃣ HTML dos Gráficos
+HTML
+Copiar código
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Painel Admin</title>
+    <script src="assets/js/chart.js"></script>
+</head>
+<body>
+
+<h2>Consultas por Mês</h2>
+<canvas id="graficoMes" width="400" height="200"></canvas>
+
+<h2>Consultas por Status</h2>
+<canvas id="graficoStatus" width="400" height="200"></canvas>
+
+<script>
+
+const meses = <?php echo json_encode($meses); ?>;
+const totaisMes = <?php echo json_encode($totaisMes); ?>;
+
+const status = <?php echo json_encode($status); ?>;
+const totaisStatus = <?php echo json_encode($totaisStatus); ?>;
+
+// GRÁFICO 1 - Linha (Consultas por mês)
+new Chart(document.getElementById("graficoMes"), {
+    type: 'line',
+    data: {
+        labels: meses,
+        datasets: [{
+            label: 'Total de Consultas',
+            data: totaisMes,
+            borderWidth: 2,
+            fill: false
+        }]
+    }
+});
+
+// GRÁFICO 2 - Pizza (Status)
+new Chart(document.getElementById("graficoStatus"), {
+    type: 'pie',
+    data: {
+        labels: status,
+        datasets: [{
+            data: totaisStatus
+        }]
+    }
+});
+
+</script>
+
+</body>
+</html>
+5️⃣ conexao.php
+PHP
+Copiar código
+<?php
+$conn = mysqli_connect("localhost", "root", "", "clinica");
+
+if(!$conn){
+    die("Erro de conexão");
+}
+?>
+🔥 Resultado
+No teu painel de administrador vai aparecer:
+📈 Gráfico mostrando crescimento de consultas
+🥧 Gráfico mostrando distribuição por status
+Tudo offline.
+Tudo vindo da BD.
+Sem API externa.
+💡 Agora deixa eu melhorar isso como desenvolvedor mesmo…
+Se quiseres deixar mais profissional no teu sistema:
+Mostrar apenas ano atual
+Filtro por médico
+Filtro por intervalo de datas
+Dashboard com cards:
+Total de consultas
+Total realizadas
+Total canceladas
+Receita total
+Se quiser, eu posso já montar uma versão estilo sistema empresarial tipo hospital privado de Luanda 😎🏥
+Queres versão simples ou versão nível clínica privada top?
+
+
+
+
+
+
+
+
+Sim, essa é uma estratégia excelente e muito comum. Aprender o básico online permite-te avançar ao teu próprio ritmo e poupar dinheiro, enquanto o nível avançado presencial oferece o suporte necessário para dúvidas complexas. 
+YouTube
+YouTube
+ +3
+Onde aprender Excel Básico grátis (Online)
+Existem várias plataformas reconhecidas que oferecem cursos gratuitos com certificado: 
+Fundação Bradesco (Escola Virtual): Oferece cursos desde o nível básico até ao avançado.
+Escola Virtual Gov (EVG): Disponibiliza módulos de introdução e intermédio com foco prático.
+SENAI Play: Possui conteúdos básicos focados no mercado de trabalho.
+Kultivi: Oferece um curso completo focado na construção de dashboards e lógica de planilhas. 
+Escola Virtual Gov
+Escola Virtual Gov
+ +6
+Como fazer a transição para o Presencial
+Para saltar diretamente para um curso avançado presencial, deves garantir que dominas estes tópicos básicos/intermédios, que são requisitos comuns: 
+Cursos SESI SENAI/SC
+Cursos SESI SENAI/SC
+ +1
+Fórmulas fundamentais: SOMA, MÉDIA, CONT.VALORES, MÁXIMO e MÍNIMO.
+Lógica Condicional: Domínio da função SE e formatação condicional.
+Referenciação: Saber usar o cifrão ($) para fixar células.
+Tabelas Dinâmicas: Noções básicas de como resumir dados. 
+Escola Virtual Gov
+Escola Virtual Gov
+ +3
+Dica: Ao procurar o curso presencial (como no Senac ou centros de formação local), verifica se eles aceitam o teu certificado online como comprovativo de conhecimento ou se realizam um teste de nivelamento para te permitirem entrar direto no nível avançado. 
+Senac São Paulo
+Senac São Paulo
+ +1
+Gostarias de ajuda para encontrar centros de formação presencial específicos na tua cidade?
+
+
+
+
+
+undefined
+undefined
+undefined
+8 sites
+Para aprender Excel básico focado na realidade de Luanda, podes combinar recursos online gratuitos (para dominar a ferramenta) com centros locais que oferecem formações adaptadas ao mercado de trabalho angolano (onde se usa muito o Excel para gestão, faturação e RH).
+Onde aprender Excel Básico em Luanda
+Aqui estão as melhores opções para encontrar cursos que entendem o contexto local:
+CEFOJOR: Localizado na Maianga, é uma das referências para cursos técnicos e de informática com preços acessíveis. Oferece formação em informática na ótica do utilizador que inclui o Excel básico focado em tarefas administrativas.
+Centro de Formação ITGest: Localizado na Ilha do Cabo, é um centro certificado que oferece formações tecnológicas de alta qualidade, ideais para quem quer alinhar o Excel com as exigências de empresas em Angola.
+Academia EXCELentes: Uma academia especializada apenas em Excel, com turmas presenciais (ex: no Kilamba) e conteúdos muito práticos para a realidade laboral angolana.
+Centro de Formação Profissional de Cazenga: Uma opção estatal focada na capacitação de jovens e adultos com custos reduzidos, ideal para quem procura o essencial para entrar no mercado. 
+Centro de Formação Certificada ITGest
+Centro de Formação Certificada ITGest
+ +5
+Dicas para a "Realidade de Luanda"
+Ao escolheres ou praticares o básico, foca-te em exercícios que simulem situações locais:
+Câmbios e Moeda: Pratica tabelas que convertam Kwanza (AOA) para Dólar/Euro usando taxas de câmbio atualizadas.
+Gestão de Stocks: Muitas empresas em Luanda usam Excel para controlar inventários simples.
+Folha de Salário (IRT): Tenta aprender a lógica de cálculo do IRT (Imposto sobre o Rendimento do Trabalho) e Segurança Social nas tuas fórmulas SE. 
+Facebook
+Facebook
+Como começar agora (Online e Grátis)
+Enquanto não te inscreves num presencial, podes usar a Escola Virtual Gov para aprender o básico (fórmulas e tabelas) sem custos, o que te dará uma base sólida para o nível avançado depois. 
+Escola Virtual Gov
+Escola Virtual Gov
+Gostarias de saber os preços médios praticados por estes centros em Luanda para te organizares financeiramente?
+
+
+
+
+
+undefined
+undefined
+undefined
+9 sites
+Sim, o YouTube é uma das melhores ferramentas para isso. Para que o teu aprendizado básico seja útil na realidade de Luanda, recomendo canais que focam na prática administrativa e contabilística, que é o que as empresas em Angola mais valorizam. 
+Aqui tens os melhores canais para começares:
+Canais com Foco na Prática e Mercado (Português)
+Contabilidade Angolana Online: Ideal para veres o Excel aplicado diretamente ao contexto de Angola, com noções de gestão e contabilidade local.
+Hashtag Treinamentos: É um dos maiores em português. Eles têm "intensivões" de Excel básico que te ensinam a sair do zero em poucas horas.
+Guia do Excel: Excelente para aprenderes a criar tabelas e listas de forma profissional e organizada.
+Curso de Excel Online (Michel Fabiano): Focado em quem precisa de aprender rápido para o mercado de trabalho. 
+YouTube
+YouTube
+ +4
+O que deves "dominar" no YouTube para estar pronto para Luanda:
+Para que o teu curso avançado presencial em Luanda valha a pena, garante que aprendes estes tópicos no YouTube primeiro:
+Formatação de Células: Saber colocar cores, bordas e, acima de tudo, formatar como Moeda (configurando para Kwanza - AOA).
+Fórmulas de Soma e Subtração: Essencial para controlo de caixa e pequenos negócios.
+Função SE: Muito usada para calcular se uma fatura está paga ou em atraso.
+Congelar Painéis: Dica de ouro para quem trabalha com listas grandes de clientes ou stock. 
+YouTube
+YouTube
+ +2
+Dica Extra: Quando estiveres a ver as aulas, tenta trocar os exemplos de Reais (R$) por Kwanzas (Kz) e os nomes de cidades por bairros de Luanda (Maianga, Talatona, Viana). Isso vai ajudar o teu cérebro a conectar a ferramenta com o teu dia a dia.
+Queres que eu ajude a montar um cronograma de 1 semana com os vídeos específicos para aprenderes o básico antes de ires para o presencial?
+
+
+
+Para criar um painel como o da imagem, utilizaremos PHP (mysqli) para buscar os dados, HTML/CSS para a estrutura e a biblioteca Chart.js para renderizar os gráficos de linha e pizza.
+1. Estrutura do Banco de Dados (SQL)
+Primeiro, precisamos de uma tabela para armazenar as consultas. Use este esquema:
+sql
+CREATE TABLE consultas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_consulta DATE NOT NULL,
+    status ENUM('Marcada', 'Realizada', 'Cancelada') NOT NULL
+);
+Use o código com cuidado.
+
+2. O Código (index.php)
+Este script faz tudo: conecta ao banco, processa os totais por mês e por status, e gera os gráficos.
+php
+<?php
+// Configurações de conexão
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "sistema_medico";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Falha na conexão: " . $conn->connect_error);
+}
+
+// 1. Dados para o Gráfico de Linha (Consultas por Mês)
+$meses_label = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+$dados_meses = array_fill(0, 12, 0);
+
+$res_mes = $conn->query("SELECT MONTH(data_consulta) as mes, COUNT(*) as total FROM consultas GROUP BY mes");
+while($row = $res_mes->fetch_assoc()) {
+    $dados_meses[$row['mes'] - 1] = $row['total'];
+}
+
+// 2. Dados para o Gráfico de Pizza (Consultas por Status)
+$status_counts = ['Marcada' => 0, 'Realizada' => 0, 'Cancelada' => 0];
+$res_status = $conn->query("SELECT status, COUNT(*) as total FROM consultas GROUP BY status");
+while($row = $res_status->fetch_assoc()) {
+    $status_counts[$row['status']] = $row['total'];
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Admin - Consultas</title>
+    <script src="https://cdn.jsdelivr.net"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .chart-container { margin-bottom: 40px; padding: 20px; border: 1px solid #eee; border-radius: 8px; }
+        h2 { font-size: 1.2rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Painel Admin - Sistema de Consultas Médicas Online</h1>
+
+    <!-- Gráfico de Linha -->
+    <div class="chart-container">
+        <h2>Consultas por Mês</h2>
+        <canvas id="graficoLinha"></canvas>
+    </div>
+
+    <!-- Gráfico de Pizza -->
+    <div class="chart-container">
+        <h2>Consultas por Status</h2>
+        <canvas id="graficoPizza" style="max-height: 400px;"></canvas>
+    </div>
+</div>
+
+<script>
+// Configuração Gráfico de Linha
+const ctxLinha = document.getElementById('graficoLinha').getContext('2d');
+new Chart(ctxLinha, {
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode($meses_label); ?>,
+        datasets: [{
+            label: 'Total de Consultas',
+            data: <?php echo json_encode($dados_meses); ?>,
+            borderColor: '#3498db',
+            backgroundColor: '#3498db',
+            fill: false,
+            tension: 0.1,
+            pointRadius: 5
+        }]
+    }
+});
+
+// Configuração Gráfico de Pizza
+const ctxPizza = document.getElementById('graficoPizza').getContext('2d');
+new Chart(ctxPizza, {
+    type: 'pie',
+    data: {
+        labels: ['Marcada', 'Realizada', 'Cancelada'],
+        datasets: [{
+            data: [
+                <?php echo $status_counts['Marcada']; ?>, 
+                <?php echo $status_counts['Realizada']; ?>, 
+                <?php echo $status_counts['Cancelada']; ?>
+            ],
+            backgroundColor: ['#4caf50', '#2196f3', '#f44336']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: { position: 'right' }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
+Use o código com cuidado.
+
+O que este código faz:
+Conexão: Usa mysqli para conectar ao seu banco de dados local.
+Lógica de Dados:
+Para o gráfico de linha, ele inicializa um array de 12 posições (meses) com zero e preenche com os resultados do SQL.
+Para o gráfico de pizza, ele agrupa as consultas por status.
+Frontend: Utiliza a biblioteca Chart.js (via CDN), que é o padrão da indústria para gráficos bonitos e responsivos.
+Integração: O PHP usa json_encode para passar os arrays de dados diretamente para o JavaScript de forma segura.
+Você gostaria que eu te ajudasse a criar um formulário para inserir novas consultas no banco de dados e testar os gráficos?
+
+
+
+
+

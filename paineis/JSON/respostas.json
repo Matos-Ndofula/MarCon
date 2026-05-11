@@ -1,0 +1,8 @@
+
+{
+    "Olá": ["Olá! Como posso ajudar?", "Oi, como vai?"], "olá": ["Olá! Como <br>estás?", "Oi, como vai?"], 
+    "ola": ["Olá! Como estás?", "Oi, como vai?"], "olá": ["Olá! Como estás?", "Oi, como vai?"],
+    
+    "ajuda": ["Posso ajudar em algo?", "Como posso te ajudar?"],
+    "despedida": ["Até logo!", "Tchau!"]
+}

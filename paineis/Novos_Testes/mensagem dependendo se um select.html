@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificar Select</title>
+</head>
+<body>
+
+  <label for="meuSelect">Escolha uma opção:</label>
+  <select id="meuSelect">
+<option value="">Opção 1</option> 
+  </select>
+
+  <button onclick="verificarSelect()">Verificar</button>
+  <p id="mensagem"></p>
+
+  <script>
+    function verificarSelect() {
+      const select = document.getElementById("meuSelect");
+      const mensagem = document.getElementById("mensagem");
+
+      if (select.value.length === 0) {
+        mensagem.textContent = "O select está vazio!";
+        mensagem.style.color = "red";
+      } else {
+        mensagem.textContent = "O select tem opções disponíveis.";
+        mensagem.style.color = "green";
+      }
+    }
+  </script>
+
+</body>
+</html>

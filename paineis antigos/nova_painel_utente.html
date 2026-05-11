@@ -1,0 +1,325 @@
+<?php
+require("../configs/conexao.php");
+require("config_encript_decrypt_url.php");
+
+
+session_start();
+require("../configs/protecao.php");
+protegerUser();
+
+if(isset($_GET["action"]) AND $_GET["action"] == "sair"){
+    session_destroy();
+    header("Location: ../");
+  }
+
+  $nome_utente = null;
+    if(isset($_GET['sucesso'])){
+        $nome_utente = $_GET['sucesso']; 
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Painel Funcionário</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+      <script src='fullcalendar-6.1.11/dist/index.global.min.js'></script>
+      <script src='locales/pt.global.js'></script>
+
+    <script src="js_css/jquery-3.5.1.js"></script>
+    <script src="java/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <link href="java/js/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+
+    <script src="js_css/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="js_css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="js_css/sweetalert.min.css">
+
+    <style>
+        :root {
+            --sidebar-bg: #ffffff;
+            --main-bg: #f0f2f5;
+            --primary-blue: #1a3c5a;
+            --accent-orange: #ffc107;
+        }
+
+        body { background-color: #9a9ca2; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+        .sidebar-brand { padding: 0 25px; font-weight: bold; font-size: 1.5rem; color: var(--primary-blue); margin-bottom: 30px; }
+        .nav-link-custom { padding: 12px 25px; color: #555; text-decoration: none; display: flex; align-items: center; transition: 0.3s; }
+        .nav-link-custom.active { background: #e9ecef; color: var(--primary-blue); border-left: 4px solid var(--primary-blue); }
+        .nav-link-custom i { margin-right: 15px; width: 20px; }
+        .logout-link { margin-top: auto; color: #666; }
+
+        /* Main Content */
+        .main-content { margin-left: 240px; padding: 20px 40px; }
+
+        /* Top Bar */
+        .topbar { background: white; padding: 10px 40px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 30px; margin-left: 240px; }
+        .user-profile { display: flex; align-items: center; font-weight: 500; color: #444; }
+        .user-profile i { font-size: 1.5rem; margin-right: 10px; }
+
+        /* Action Cards */
+        .action-card {
+           
+              background: white;
+              border-radius: 5px;
+              padding: 8px 65px;
+              margin-bottom: 10px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+              cursor: pointer;
+              transition: transform 0.2s;
+              margin-left: 8px;
+        }
+        .action-card:hover { transform: translateY(-2px); }
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+        }
+        .bg-calendar { background-color: #5c7cfa; }
+        .bg-add { background-color: #74c0fc; }
+        .bg-remove { background-color: #91a7ff; }
+
+        /* Table Card */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        .badge-status { background-color: var(--accent-orange); color: #000; padding: 8px 15px; border-radius: 5px; font-weight: 600; font-size: 0.8rem; }
+        .table th { font-size: 0.85rem; color: #666; font-weight: 600; border-top: none; }
+        .btn-action-table { padding: 5px 8px; border-radius: 4px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+      <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="painel_cadastro_utente_boas_vindas.php" class="logo d-flex align-items-center">
+        <img src="assets/img/" alt="">
+
+         <?php 
+          $sql = "SELECT * FROM Admin";
+          
+          $result = mysqli_query($mysqli2, $sql);
+
+            if($result && $result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $nome_sistema = $row["nome_sistema"];
+                
+                ?>
+
+                   <span class="d-none d-lg-block"><?php echo $nome_sistema;?></span>
+                          
+<?php
+           } else {
+                echo "Nenhum usuário encontrado.";
+            }
+
+      // Fechar conexão
+      $mysqli2->close();
+?>
+
+        
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+                  
+<?php
+    $id = $_SESSION["id"];
+    $select = $mysqli->query("SELECT * FROM utente WHERE id='$id'");
+    $row = $select->num_rows;
+        $get = $select->fetch_array();
+
+        $nome_utente = $get['nome_utente'];
+        $_SESSION['nome_utente'] = $nome_utente;
+
+        $email = $get['email'];
+        $_SESSION['email'] = $email;
+
+        $BI = $get['BI'];
+        $_SESSION['BI'] = $BI;
+
+        $telefone = $get['telefone'];
+        $_SESSION['telefone'] = $telefone;
+
+        $endereco = $get['endereco'];
+        $_SESSION['endereco'] = $endereco;
+
+            
+    
+  ?>
+ 
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                      <h5 style="margin-top: 10px" class="bi bi-person-circle"></h5>
+        
+            
+            <!--<img src="assets/img/images.jpg" alt="Profile" class="rounded-circle">-->
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="dado"><?php echo $nome_utente; ?></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+           
+              <li>
+              <hr class="dropdown-divider">
+            </li>
+            
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="" data-bs-toggle="modal" data-bs-target="#meu_perfil">
+                <i class="bi bi-person-circle"></i>
+                <span>Perfil</span>
+              </a>
+
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">SisCons</div>
+        <a href="#" class="nav-link-custom active"><i class="bi bi-file-medical"></i> Consultas</a>
+        <a href="#" class="nav-link-custom"><i class="bi bi-calendar-alt"></i> Calendário</a>
+        
+        <a href="#" class="nav-link-custom logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar fixed-top">
+        <div class="me-4"><i class="far fa-bell"></i></div>
+        <div class="user-profile">
+            <i class="far fa-user-circle"></i> Ndofula Matos <i class="fas fa-chevron-down ms-2 small"></i>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <h2 class="fw-bold mb-1">Presado(a) Ndofula Matos</h2>
+        <p class="text-muted mb-4">Seja Bem-vindo ao sistema de consultas online</p>
+
+        <!-- Botões de Ação -->
+        <div class="action-card">
+            <div class="action-icon bg-calendar"><i class="bi bi-calendar-day"></i></div>
+            <span class="fw-bold">Calendário</span>
+        </div>
+        <div class="action-card">
+            <div class="action-icon bg-add"><i class="bi bi-plus"></i></div>
+            <span class="fw-bold">Marcar Consulta</span>
+        </div>
+        <div class="action-card">
+            <div class="action-icon bg-remove"><i class="bi bi"></i></div>
+            <span class="fw-bold">Desmarcar Consulta</span>
+        </div>
+
+        <!-- Tabela de Consultas -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nº Processo</th>
+                            <th>Médico</th>
+                            <th>Especialidade</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                            <th>Botão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>73</td>
+                            <td>Danilo</td>
+                            <td>Dermatologia</td>
+                            <td>2026-03-26</td>
+                            <td>08:00:00</td>
+                            <td><span class="badge-status">Agendado</span></td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-action-table me-1"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-outline-danger btn-action-table"><i class="far fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <!-- Repetir linhas conforme necessário -->
+                        <tr>
+                            <td>72</td>
+                            <td>Danilo</td>
+                            <td>Dermatologia</td>
+                            <td>2026-03-27</td>
+                            <td>08:00:00</td>
+                            <td><span class="badge-status">Agendado</span></td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-action-table me-1"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-outline-danger btn-action-table"><i class="far fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h5 class="mt-4 fw-bold">Consultas Agendadas</h5>
+        </div>
+    </div>
+
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
+
+

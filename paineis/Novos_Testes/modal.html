@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+<body>
+    <h2>Aqui</h2>
+  <table border="1" cellpadding="10">
+    <tr>
+        <th>Nome</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr>
+        <td>João</td>
+        <td>
+            <button onclick="abrirModal(1, 'eliminar')">Eliminar</button>
+            <button onclick="abrirModal(1, 'actualizar')">Actualizar</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Maria</td>
+        <td>
+            <button onclick="abrirModal(2, 'eliminar')">Eliminar</button>
+            <button onclick="abrirModal(2, 'actualizar')">Actualizar</button>
+        </td>
+    </tr>
+</table>
+
+
+<div id="modal" style="display:none;">
+    <div id="modalConteudo">
+        <p id="textoModal">Tens a certeza?</p>
+
+        <button onclick="fecharModal()">Não</button>
+        <button onclick="confirmarAcao()">Sim</button>
+    </div>
+</div>
+
+<style>
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalConteudo {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    min-width: 250px;
+    text-align: center;
+}
+</style>
+
+<script>
+let idSelecionado = null;
+let acaoSelecionada = '';
+
+function abrirModal(id, acao) {
+    idSelecionado = id;
+    acaoSelecionada = acao;
+
+    if (acao === 'eliminar') {
+        document.getElementById('textoModal').innerText =
+            'Tens a certeza que queres ELIMINAR este registo?';
+    } else {
+        document.getElementById('textoModal').innerText =
+            'Tens a certeza que queres ACTUALIZAR este registo?';
+    }
+
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function fecharModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+
+function confirmarAcao() {
+    fecharModal();
+
+    // Aqui já tens o ID e a ação
+    alert('ID: ' + idSelecionado + ' | Ação: ' + acaoSelecionada);
+
+    // 👉 Exemplo para enviar ao PHP
+    /*
+    window.location.href =
+        'acao.php?id=' + idSelecionado + '&acao=' + acaoSelecionada;
+    */
+}
+</script>
+</body>
+</html>

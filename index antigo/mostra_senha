@@ -1,0 +1,59 @@
+<?php
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Painel Médico Consulta</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+
+</head>
+
+<body>
+    
+      <h2>Mostrar</h2>
+      <input type="password" name="" value="">
+      
+    <input type="button" value="Mostrar" name="submit"> 
+
+</body>
+
+</html>
+
+<?php
+  if(isset($_POST['submit'])){
+        
+        $checkbox_var = $_POST['checkbox'];
+        
+        $checkbox_var_1 = "";
+
+        foreach ($checkbox_var as $checkbox_var_2) {
+          $checkbox_var_1.=$checkbox_var_2;
+        }
+
+           $insert = $mysqli->query("INSERT INTO `historico_medico`(`questao_2`) VALUES ('$checkbox_var_1')");
+        if($insert){
+                echo '
+                <script >
+                alert("checkbox inserida!");
+            </script>     
+            
+              ';
+              
+            
+            }else{
+                echo "Erro ao inserir";
+            }
+      
+
+  }
+?>

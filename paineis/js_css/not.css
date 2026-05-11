@@ -1,0 +1,335 @@
+*{
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	outline:0;
+}
+html{
+  /*a cada 1rem será considerada 10px*/
+  font-size:62.5%;
+
+  font-family:sans-serif;
+
+  line-height:1.15;
+ /*
+-webkit-text-size-adjust:100%;
+-webkit-tap-highlight-color:transparent;*/
+}
+ body{
+  font-size:1.6rem;
+ 
+}
+/*h2{
+  color: orange;
+  border-bottom:solid 1px black; 
+  width: 80%;
+  margin:2% 10% 0% 10%;
+  text-align: left;
+ 
+}*/
+html, body{
+  height: 100vh;
+  
+}
+figure {
+    margin: 0 0 1rem;
+}
+header.cabecalho {
+  background-color: #653579;
+  width:100%;
+  position: fixed;
+  height: auto;
+  top: 0;
+  z-index: 1; 
+}
+
+header.cabecalho div#estado{
+  position: relative;
+  background-color: #757575;
+  display: flex;
+  width:100%;
+}
+
+header.cabecalho div#estado #icon{
+  position: relative;
+  width:5%;
+}
+
+
+header.cabecalho div#estado div.estado-dados{
+  position: relative;
+  color: white;
+  display: grid;
+  margin: 0% 1% 0% 0%; 
+  font-weight: bold;
+}
+
+header.cabecalho div#estado span#login{
+  position: relative;
+  left: 81%;
+  background-color: orange;
+  color:white;
+  padding: 1%;
+  width:6%;
+  text-align: center;
+  border-radius: 20%;
+}
+
+header.cabecalho nav.nav-menu {
+  position: relative;
+  width:80%;
+  margin-left: 20%;
+}
+
+header.cabecalho nav.nav-menu ul.ul-menu{
+  position: relative;
+  width:80%;
+  list-style: none;
+  display: flex; 
+  text-align: center;
+}
+
+header.cabecalho nav.nav-menu ul.ul-menu li{
+  position: relative; 
+  width: 12%;
+  padding: 1% 0.3% 1% 0.3%;
+
+  border-radius:5%; 
+  /*left:13%;*/
+  margin-left: 0.2%;
+}
+
+header.cabecalho nav.nav-menu ul.ul-menu li a{
+ position: relative;
+ text-decoration: none;
+ color: white; 
+ align-items: center;
+}
+
+header.cabecalho nav.nav-menu ul.ul-menu li:hover{
+  color: black;
+  background-color:orange;
+}
+
+section.corpo {
+  position: relative;
+  width:100%;
+  text-align: center;
+  align-items: center; 
+  display:inline-block;
+  background-color: white/*#757575*/;
+  margin-top: 6.3%;
+}
+
+section.corpo  div.texto-imagem{
+ position: relative;
+ width:100%;
+ top:50%;
+ padding: 4%; 
+ color:white;
+ background-color: orange;
+}
+
+section.corpo  div.texto-imagem h1.texto{
+ font-size: 5.4rem;
+}
+
+section.corpo  div.texto-imagem form#pesq {
+  position: relative;
+  width: 80%;
+  display: flex;
+  margin: 1% 10% 2% 10%;
+  align-items: center;
+}
+section.corpo  div.texto-imagem form#pesq input[type=text] {
+  position: relative;
+  width: 40%;
+  padding:2%;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin: 0% 0% 0% 20%;
+}
+ 
+/* #1E90FF ;#9400D3; */
+section.corpo  div.texto-imagem form#pesq button {
+  position: relative;
+  background-color: #653579;
+  color: white;
+  padding:2%;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 15%;
+}
+
+section.corpo div.dividir_duas_parte{
+  position:relative;
+  width:98%;
+  margin:5% 0.5% 2% 0.5%;
+ 
+  display: inline-block;
+ }
+section.corpo div.dividir_duas_parte div.principal{
+  position:relative;
+  width:60%;
+  margin:1% 3% 0% 0.5%;
+ 
+  float: right;
+ }
+
+section.corpo  div.dividir_duas_parte div.principal h1{
+  position:relative;
+  font-size:3.5rem;
+  text-align:left;	
+  margin:5% 0% 0% 2%;
+}
+section.corpo div.dividir_duas_parte div.principal img{
+  position:relative;
+  width:100%;	
+  margin:0% 0% 1% 0%;
+}
+section.corpo  div.dividir_duas_parte div.principal div{
+  position:relative;
+  text-align:justify;
+}
+section.corpo  div.dividir_duas_parte div.principal div p{
+  position:relative;
+  margin:0% 0% 2% 0%;
+}
+section.corpo div.dividir_duas_parte div.mae{
+ position: relative;
+ width: 28%;
+ display:block;
+ background-color:orange;
+ margin:10% 1% 15% 1%;
+ float: left;
+ border-right: solid 2px orange;
+}
+section.corpo div.dividir_duas_parte div.mae .lidas{
+ position: relative;
+ width: 100%;
+ display:block;
+}
+section.corpo h2{
+ position: relative;
+ margin-bottom:2%;
+ font-size:2.8rem;
+}
+
+section.corpo div.dividir_duas_parte div.mae .lidas figure img{
+ position: relative;
+ width: 100%;
+}
+section.corpo div.dividir_duas_parte div.mae .lidas figure figcaption{
+	position:absolute;
+	top:0%;
+	background-color: rgba(0,0,0,0.4);
+	color: white;
+	width:100%;
+	height:99%;
+	padding-top: 25%;
+}
+
+section.corpo div.outras{
+position:relative;
+width:100%;
+margin:0% 0% 0% 0%;
+background-color: rgba(0,0,0,0.1);
+}
+section.corpo div.outras ul.conteudo{
+ position: relative;
+ width: 80%;
+ margin: 1% 10% 1% 10%;
+ display:flex;
+ list-style: none;
+}
+section.corpo div.outras ul.conteudo li.cada{
+ position: relative;
+ background-color: white;
+ width:40%;
+ margin: 0.8%; 
+ transition: transform 1.2s;
+ }
+ section.corpo div.outras  ul.conteudo li.cada figure.foto-legenda img{
+	position:relative;
+	width:100%;
+}
+section.corpo div.outras  ul.conteudo li.cada figure.foto-legenda figcaption{
+	position:absolute;
+	top:0%;
+	background-color: rgba(0,0,0,0.4);
+	color: white;
+	width:100%;
+	height:100%;
+	padding: 5%;
+}
+
+  
+section.corpo div.mais{
+position:relative;
+background-color:orange;
+width:100%;
+margin:1% 0% 0% 0%;
+padding-bottom:10%;
+}
+section.corpo div.outras h2{
+ position: relative;
+ border-bottom: solid 1px black;
+ color:orange;
+ margin:1% 0% 0% 0%;
+}
+section.corpo div.mais h1,section.corpo div.mais div{
+position:relative;
+text-align:left;
+margin:1% 0% 0% 50%;
+color: white;
+}
+section.corpo div.mais div{
+color: black;
+margin:2% 0% 0% 50%;
+}
+
+
+footer.rodape {
+      position: relative;
+      background-color:#653579;
+      width: 100%;
+      height: auto;
+      display: block;
+      text-align:center;
+
+    }
+   /* footer h3,footer p {
+      font-size: 1.4rem;
+    }*/
+    footer.rodape div.rodape-bloco{
+      position: relative;
+      padding:2%;
+      margin:0% 5% 0% 5%;
+      display:inline-grid;
+      text-align:left;
+
+    }
+footer.rodape div.rodape-bloco .title{
+      position: relative;
+      color:orange;
+      margin: 0% 0% 5% 0%;
+    }
+
+    footer.rodape div.rodape-bloco div.canais a{
+      position: relative;
+      margin: 1%;
+      display:block;
+
+    }
+
+a{
+   text-decoration: none;
+   color:white;}
+
+
+@media(max-width: 768px){
+  html{
+    font-size:30%;
+  }
+}

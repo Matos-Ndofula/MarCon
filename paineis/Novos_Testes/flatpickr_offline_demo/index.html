@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Flatpickr Offline</title>
+  <link rel="stylesheet" href="flatpickr/flatpickr.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Escolha uma data:</h2>
+  <input type="text" id="data" placeholder="Escolha uma data" />
+
+  <script src="flatpickr/flatpickr.min.js"></script>
+  <script src="flatpickr/l10n/pt.js"></script>
+  <script>
+    flatpickr("#data", {
+      dateFormat: "d/m/Y",
+      locale: {
+       flatpickr.l10ns.pt,
+        firstDayOfWeek: 1
+      },
+      disable: [
+        function(date) {
+          return date.getDay() === 1 || date.getDay() === 6; // Segunda e Sábado
+        }
+      ]
+    });
+  </script>
+
+</body>
+</html>

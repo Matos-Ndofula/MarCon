@@ -1,0 +1,356 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar: Visível apenas em telas médias (md) ou maiores -->
+    <aside class="col-md-3 col-lg-2 d-none d-md-block sidebar bg-light">
+      <!-- Seu conteúdo da sidebar aqui -->
+    </aside>
+
+    <!-- Main: Ocupa 12 colunas no mobile e o restante no desktop -->
+    <main class="col-12 col-md-9 col-lg-10 ms-sm-auto px-md-4">
+      <section class="card mt-3">
+        <div class="card-body">
+           <!-- Seu conteúdo central aqui -->
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+
+
+
+
+
+/* Estrutura Geral */
+.wrapper {
+  display: flex;
+  flex-direction: column; /* Mobile: um embaixo do outro */
+}
+
+.sidebar {
+  display: none; /* Esconde no mobile por padrão */
+  width: 250px;
+  background: #f8f9fa;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Quando a tela for maior que 768px (Desktop) */
+@media (min-width: 768px) {
+  .wrapper {
+    flex-direction: row; /* Coloca lado a lado */
+  }
+  
+  .sidebar {
+    display: block; /* Mostra a sidebar */
+  }
+}
+
+
+
+
+
+
+......... 
+
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="eliminar_medico.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Eliminação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja eliminar o médico <strong id="nome_medico"></strong>?</p>
+          <!-- Campo oculto que enviará o ID correto -->
+          <input type="hidden" name="id_medico" id="id_medico">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+          <button type="submit" name="confirmar_eliminar" class="btn btn-danger">Sim, Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Script para passar os dados do botão para o modal -->
+<script>
+    var modalEliminar = document.getElementById('modalEliminar');
+    modalEliminar.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var nome = button.getAttribute('data-nome');
+        
+        document.getElementById('id_medico').value = id;
+        document.getElementById('nome_medico').textContent = nome;
+    });
+</script>
+
+
+
+
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="eliminar_medico.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Eliminação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja eliminar o médico <strong id="nome_medico"></strong>?</p>
+          <!-- Campo oculto que enviará o ID correto -->
+          <input type="hidden" name="id_medico" id="id_medico">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+          <button type="submit" name="confirmar_eliminar" class="btn btn-danger">Sim, Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Script para passar os dados do botão para o modal -->
+<script>
+    var modalEliminar = document.getElementById('modalEliminar');
+    modalEliminar.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var nome = button.getAttribute('data-nome');
+        
+        document.getElementById('id_medico').value = id;
+        document.getElementById('nome_medico').textContent = nome;
+    });
+</script>
+
+
+
+
+
+
+
+<?php
+// Conexão com o banco
+$conexao = mysqli_connect("localhost", "usuario", "senha", "nome_banco");
+
+if (isset($_POST['confirmar_eliminar'])) {
+    // Escapa a string para evitar SQL Injection
+    $id = mysqli_real_escape_string($conexao, $_POST['id_medico']);
+
+    $sql = "DELETE FROM medicos WHERE id = '$id'";
+
+    if (mysqli_query($conexao, $sql)) {
+        header("Location: lista_medicos.php?msg=sucesso");
+    } else {
+        echo "Erro ao eliminar: " . mysqli_error($conexao);
+    }
+}
+
+mysqli_close($conexao);
+?>
+
+
+
+
+
+
+Gráfico
+
+
+
+<!-- Seção de Cards Informativos -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-4 col-lg">
+    <div class="card shadow-sm border-0 text-center p-3">
+      <h6 class="text-muted">Médicos</h6>
+      <h3 class="fw-bold">12</h3>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-lg">
+    <div class="card shadow-sm border-0 text-center p-3">
+      <h6 class="text-muted">Utentes</h6>
+      <h3 class="fw-bold">1.250</h3>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-lg">
+    <div class="card shadow-sm border-0 text-center p-3 text-primary">
+      <h6 class="text-muted">Agendadas</h6>
+      <h3 class="fw-bold">45</h3>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-lg">
+    <div class="card shadow-sm border-0 text-center p-3 text-danger">
+      <h6 class="text-muted">Desmarcadas</h6>
+      <h3 class="fw-bold">8</h3>
+    </div>
+  </div>
+  <div class="col-6 col-md-4 col-lg">
+    <div class="card shadow-sm border-0 text-center p-3 text-success">
+      <h6 class="text-muted">Atendidas</h6>
+      <h3 class="fw-bold">32</h3>
+    </div>
+  </div>
+</div>
+
+<!-- Seção do Gráfico -->
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <h5 class="card-title mb-4">Fluxo de Consultas</h5>
+    <canvas id="consultasChart" height="100"></canvas>
+  </div>
+</div>
+
+<!-- Scripts Necessários -->
+<script src="https://jsdelivr.net"></script>
+
+
+
+
+
+
+
+const ctx = document.getElementById('consultasChart').getContext('2d');
+const consultasChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+        datasets: [{
+            label: 'Agendadas',
+            data: [12, 19, 15, 17, 22, 10],
+            borderColor: '#0d6efd',
+            tension: 0.3,
+            fill: false
+        }, {
+            label: 'Atendidas',
+            data: [10, 15, 12, 14, 20, 8],
+            borderColor: '#198754',
+            tension: 0.3,
+            fill: false
+        }, {
+            label: 'Desmarcadas',
+            data: [2, 4, 3, 3, 2, 2],
+            borderColor: '#dc3545',
+            tension: 0.3,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'top' }
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+
+
+
+
+
+<div class="row g-3 mb-4">
+  <!-- Card Médicos -->
+  <div class="col-md-4 col-lg">
+    <div class="card border-0 shadow-sm bg-primary text-white p-3">
+      <small>Médicos</small>
+      <h3 class="mb-0">12</h3>
+    </div>
+  </div>
+  <!-- Card Utentes -->
+  <div class="col-md-4 col-lg">
+    <div class="card border-0 shadow-sm bg-dark text-white p-3">
+      <small>Utentes</small>
+      <h3 class="mb-0">1,250</h3>
+    </div>
+  </div>
+  <!-- Card Agendadas -->
+  <div class="col-md-4 col-lg">
+    <div class="card border-0 shadow-sm border-start border-primary border-4 p-3">
+      <small class="text-muted">Agendadas</small>
+      <h3 class="mb-0 text-primary">450</h3>
+    </div>
+  </div>
+  <!-- Card Desmarcadas -->
+  <div class="col-md-6 col-lg">
+    <div class="card border-0 shadow-sm border-start border-danger border-4 p-3">
+      <small class="text-muted">Desmarcadas</small>
+      <h3 class="mb-0 text-danger">82</h3>
+    </div>
+  </div>
+  <!-- Card Atendidas -->
+  <div class="col-md-6 col-lg">
+    <div class="card border-0 shadow-sm border-start border-success border-4 p-3">
+      <small class="text-muted">Atendidas</small>
+      <h3 class="mb-0 text-success">368</h3>
+    </div>
+  </div>
+</div>
+
+<!-- Container do Gráfico -->
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Desempenho Anual de Consultas</h5>
+    <canvas id="graficoMensal" style="max-height: 400px;"></canvas>
+  </div>
+</div>
+
+
+
+
+
+const ctx = document.getElementById('graficoMensal').getContext('2d');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        // Rótulos para os meses
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        datasets: [
+            {
+                label: 'Agendadas',
+                data: [65, 59, 80, 81, 56, 55, 40, 70, 90, 100, 110, 120],
+                borderColor: '#0d6efd',
+                backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Atendidas',
+                data: [28, 48, 40, 19, 86, 27, 90, 60, 80, 85, 95, 105],
+                borderColor: '#198754',
+                tension: 0.4
+            },
+            {
+                label: 'Desmarcadas',
+                data: [5, 10, 5, 2, 20, 15, 10, 8, 12, 5, 10, 8],
+                borderColor: '#dc3545',
+                borderDash: [5, 5], // Linha pontilhada para desmarcadas
+                tension: 0.4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom' }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: '#f0f0f0' }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});

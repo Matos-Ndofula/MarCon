@@ -1,0 +1,137 @@
+<?php
+  require("configs/conexao.php");
+  session_start();
+?>
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+  <title>Login</title>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'/>
+
+
+
+  <!-- Favicons -->
+  <link href="assets/img/imagem_logo_acima.png" rel="icon">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  
+</head>
+<body style="background: darkgray">
+        <div class="container">
+       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+ 
+                <div style="background: #fff; width: 400px; height: 100%; border-radius: 0px; padding: 8px; box-shadow: #ccc" class="form_campos_login" >
+
+                    <div class="logo" style="align-items: center; justify-content: center; background: #127; width: 400px; height: 8px; border:0px; margin-top: -8px; margin-left: -8px">
+                   </div>
+                              <h1 style="margin-left: 45%; width: 100px; height: 40px; color: #000; margin-top: 20px" class="bi bi-person-circle"></h1>
+                                 
+                 <form action="?acao=logar"method="POST">
+                  <h5 id="efeito_botao" style="color: #000;padding: 2px; align-items: center; margin-left: 50px">Para marcar uma consulta deve cadastrar-se e fazer o login</h5>
+                    <label for="email" style="color: #000;" >E-mail</label>
+
+                      <div class="col-md-12 form-group mt-3 mt-md-0" style="margin: 10px auto; border: 2px solid #639bf1;">
+                          <div class="input-group has-validation">
+                          <input type="email" class="form-control" id="email" placeholder="Digite teu E-mail" class="txt bradius" name="email" values="" required>
+                          <div class="invalid-feedback">Por favor digite o E-mail!</div>
+                         </div>
+                    </div>
+
+                    <label for="senha" style="color: #000;" >Senha</label>
+                    <div class="col-md-12 form-group mt-3 mt-md-0" style="margin: 10px auto; border: 2px solid #639bf1;">
+                          <div class="input-group has-validation">
+                          <input class="form-control" placeholder="Digite a tua Senha" id="senha" type="password" class="txt bradius" name="senha" values="" required></p>
+
+                          <div class="invalid-feedback">Por favor digite o Senha!</div>
+                         </div>
+                    </div>
+                    <input type="submit" id="logar" value="Entrar" name="button" class="btn btn-success " style="width: 171px ;border-radius: 0px; height: 40px"  />
+                    
+                    <a href="index.php" id="cancelar" class="btn btn" value=""  style="border-radius: 0px; height: 40px; background: #f44336; color: #fff">Cancelar</a>
+
+                    <a href="painel_cadastro_usuario.php" id="cancelar" class="btn btn" value=""  style="border-radius: 0px; height: 40px; background: #00f; color: #fff">Cadastra-se</a>
+                    <a href="recuperasenha.php" style="color: #000; margin-left: 45px; float: right;"><u> Esqueceu a sua Palavra Passe ?</u></a>
+                    
+                  </form>
+               
+           </div>  
+            </section>
+</div>
+
+  <script src="js/jquery.js"></script>
+
+
+
+ 
+</body>
+</html>
+
+<?php
+include("Mensagens sweetAlerts Login/links_mensagens_sweetAlerts.php");
+  if(isset($_POST["button"])){
+    $email = mysqli_real_escape_string($mysqli, $_POST["email"]);
+    $senha = mysqli_real_escape_string($mysqli, md5($_POST["senha"]));
+
+    if($email == "" || $senha == ""){
+      echo "
+         <div class='alert alert-success bg-success text-light border-0 alert-dismissible fade show' role='alert' > ". $nome." Logado Com Sucesso!
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+              </div>
+      ";
+      return true;
+    }
+
+   //$select = $mysqli->query("SELECT * FROM usuarios_n WHERE email='$email' AND senha='$senha'");
+    $select = $mysqli->query("SELECT id, nome_utente, email, nivel, senha, status FROM utente WHERE email='$email' AND senha='$senha'");
+
+    $row = $select->num_rows;
+    $get = $select->fetch_array();
+?>
+    
+    
+  
+    <span hidden=""><?php $id =$get['id'];?></span>
+    <span hidden=""><?php $_SESSION['id'] = $id;?></span>
+    <span hidden=""><?php $nome =$get['nome_utente'];?></span>
+    <span hidden=""><?php $perm = $get['nivel'];?></span>
+    <span hidden=""><?php $status = $get['status'];?></span>
+
+    
+
+    
+    
+<?php
+    if($row > 0){
+      if($perm == 1 AND $status == 1){
+        //psession_start();
+        $_SESSION["nivel"] = 1;
+        echo '<script src="Mensagens sweetAlerts Login/mensagem_sweetAlert.js"></script>';
+        sleep(2);
+             echo '<script>window.location="paineis/painel_utente_marcar_consulta.php"</script>';
+      
+       }else{
+      echo "  <div class='aviso yellow'>
+          Sua conta foi bloqueada!!
+                </div>";
+    }
+
+    }else{
+      echo '<script src="Mensagens sweetAlerts Login/mensagem_sweetAlert_erro.js"></script>
+      ';
+
+  //echo '<script>window.location="login.php"</script>';
+    }
+  }elseif(isset($_POST['recupera'])){
+    header("Location: recuperasenha.php");
+  }
+?>
